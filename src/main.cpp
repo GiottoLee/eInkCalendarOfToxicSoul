@@ -650,7 +650,7 @@ void DrawMultiLineString(string content, uint16_t x, uint16_t y, uint16_t conten
 
 void ShowWiFiSmartConfig()
 {
-  display.clearScreen(GxEPD_WHITE);
+  display.fillScreen(GxEPD_WHITE);
 
   const uint16_t x = (DISPLAY_WIDTH - SMARTCONFIG_QR_CODE_WIDTH) / 2;
   const uint16_t y = (DISPLAY_HEIGHT - SMARTCONFIG_QR_CODE_HEIGHT) / 2;
@@ -781,7 +781,8 @@ void ShowPage(PageContent pageContent)
   dws = qwAPI.GetDailyWeather(gi.id);
 
   display.setFullWindow();
-  display.clearScreen(GxEPD_WHITE);
+  // display.clearScreen(GxEPD_WHITE);
+  display.fillScreen(GxEPD_WHITE);
   display.setRotation(3);
   u8g2Fonts.setFontMode(1);                  // use u8g2 transparent mode (this is default)
   u8g2Fonts.setFontDirection(0);             // left to right (this is default)
