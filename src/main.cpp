@@ -736,7 +736,7 @@ void ShowWeatherFoot()
   foot.concat("°C");
 
   u8g2Fonts.setFont(u8g2_mfyuehei_14_gb2312);
-  u8g2Fonts.drawUTF8(88, DISPLAY_HEIGHT - 40, foot.c_str());
+  u8g2Fonts.drawUTF8(88, DISPLAY_HEIGHT - 30, foot.c_str());
 }
 
 void ShowDesigner() {
@@ -862,10 +862,10 @@ void ShowPage(PageContent pageContent)
   switch (pageContent)
   {
   case PageContent::CALENDAR:
-    drawBitmapFromSpiffs_Buffered(iconFileSmall.c_str(), 48, DISPLAY_HEIGHT - 64, false, true, false);
+    drawBitmapFromSpiffs_Buffered(iconFileSmall.c_str(), 48, DISPLAY_HEIGHT - 54, false, true, false);
     break;
   case PageContent::WEATHER:
-    drawBitmapFromSpiffs_Buffered(iconFileSmall.c_str(), 48, DISPLAY_HEIGHT - 64, false, true, false);
+    drawBitmapFromSpiffs_Buffered(iconFileSmall.c_str(), 48, DISPLAY_HEIGHT - 54, false, true, false);
     drawBitmapFromSpiffs_Buffered(iconFileBig.c_str(), 88, 140, false, true, false);
     break;
   }
