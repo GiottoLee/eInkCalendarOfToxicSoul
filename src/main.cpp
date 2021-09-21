@@ -315,6 +315,7 @@ const char *WEEKDAY_CN[] = {"周日", "周一", "周二", "周三", "周四", "�
 const char *WEEKDAY_EN[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 const char *MONTH_CN[] = {"一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"};
 const char *MONTH_EN[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+bool isBirthday = false;
 const uint16_t SMARTCONFIG_QR_CODE_WIDTH = 120;
 const uint16_t SMARTCONFIG_QR_CODE_HEIGHT = 120;
 GeoInfo gi;
@@ -677,6 +678,12 @@ void ShowPageHeader()
   u8g2Fonts.setFont(u8g2_mfyuanhei_16_gb2312);
   u8g2Fonts.drawUTF8(48, 64, DateTime.format(DateFormatter::DATE_ONLY).c_str());
 
+  if (DateTime.getParts().getMonth() == BIRTHDAY_MONTH && DateTime.getParts().getMonthDay() == BIRTHDAY_MONTH_DAY) {
+    isBirthday = true;
+  } else {
+    isBirthday = false;
+  }
+
   int16_t cityNameWidth = u8g2Fonts.getUTF8Width(gi.name.c_str());
   u8g2Fonts.drawUTF8((DISPLAY_WIDTH - cityNameWidth - 48), 64, gi.name.c_str());
 
@@ -699,8 +706,15 @@ void ShowCurrentDate()
 
 void ShowToxicSoul()
 {
-  u16_t r = random(ToxicSoulCount);
-  const char *soul = ToxicSoul[r];
+  const char *soul;
+  u16_t r = 0;
+  if (isBirthday = false) {
+    r = random(ToxicSoulCount);
+    soul = ToxicSoul[r];
+  } else {
+    r = random(BirthdayToxicSoulCount);
+    soul = BirthdayToxicSoul[r];
+  }
   Serial.printf("pick %u: %s\n", r, soul);
   u8g2Fonts.setFont(u8g2_mfyuehei_18_gb2312);
   DrawMultiLineString(string(soul), 80, 420, 300, 36);
