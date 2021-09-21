@@ -721,7 +721,7 @@ void ShowWeatherFoot()
 
 void ShowDesigner() {
   string designer = "Design by SilverBullet @Jinan";
-  DrawMultiLineString(designer, 120, DISPLAY_HEIGHT - 5, 300, 20);
+  DrawMultiLineString(designer, 120, DISPLAY_HEIGHT - 5, 300, 10);
 }
 
 void ShowWeatherContent()
