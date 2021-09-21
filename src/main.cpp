@@ -316,6 +316,8 @@ const char *WEEKDAY_EN[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursda
 const char *MONTH_CN[] = {"一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"};
 const char *MONTH_EN[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 bool isBirthday = false;
+#define BirthdayToxicSoulCount (sizeof(BirthdayToxicSoul)/sizeof(char *))
+#define ToxicSoulCount (sizeof(ToxicSoul) / sizeof(char *))
 const uint16_t SMARTCONFIG_QR_CODE_WIDTH = 120;
 const uint16_t SMARTCONFIG_QR_CODE_HEIGHT = 120;
 GeoInfo gi;
@@ -688,7 +690,11 @@ void ShowPageHeader()
   u8g2Fonts.drawUTF8((DISPLAY_WIDTH - cityNameWidth - 48), 64, gi.name.c_str());
 
   u8g2Fonts.setFont(u8g2_mfyuehei_14_gb2312);
-  u8g2Fonts.drawUTF8(48, 64 + 24, WEEKDAY_EN[DateTime.getParts().getWeekDay()]);
+  if (isBirthday == true) {
+    u8g2Fonts.drawUTF8(48, 62 + 24, "Luckyday");
+  } else {
+    u8g2Fonts.drawUTF8(48, 64 + 24, WEEKDAY_EN[DateTime.getParts().getWeekDay()]);
+  }
 }
 void ShowCurrentDate()
 {
@@ -708,12 +714,12 @@ void ShowToxicSoul()
 {
   const char *soul;
   u16_t r = 0;
-  if (isBirthday = false) {
-    r = random(ToxicSoulCount);
-    soul = ToxicSoul[r];
-  } else {
+  if (isBirthday == true) {
     r = random(BirthdayToxicSoulCount);
     soul = BirthdayToxicSoul[r];
+  } else {
+    r = random(ToxicSoulCount);
+    soul = ToxicSoul[r];
   }
   Serial.printf("pick %u: %s\n", r, soul);
   u8g2Fonts.setFont(u8g2_mfyuehei_18_gb2312);
@@ -735,7 +741,12 @@ void ShowWeatherFoot()
 
 void ShowDesigner() {
   string designer = "Design by SilverBullet @Jinan";
-  DrawMultiLineString(designer, 120, DISPLAY_HEIGHT - 5, 300, 10);
+  uint16_t x = 120;
+  if (isBirthday == true) {
+    designer = "胸怀洒落如风光霁月";
+    x = 150;
+  }
+  DrawMultiLineString(designer, x, DISPLAY_HEIGHT - 5, 300, 10);
 }
 
 void ShowWeatherContent()
